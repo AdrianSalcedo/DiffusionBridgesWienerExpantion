@@ -1,0 +1,67 @@
+tiempo 
+
+las comlumnas con nombre value1-6006 son el propagador y están
+repartidas por orden de la siguiente manera (solo coloco el número de value):
+
+Orden 0:
+1
+
+Orden 1:
+2-1001
+
+Orden 2 mixed:
+1002-1003-1004
+
+Orden 2:
+1005-2004
+
+Orden 3 mixed:
+2005-2006
+
+Orden 3:
+2007-3006
+
+Orden 4:
+3007-4006
+
+Orden 5:
+4007-5006
+
+Orden 6:
+5007-6006
+
+
+Orden 7:
+6007-7006
+
+
+Orden 8:
+7007-8006
+
+
+Orden 9:
+8007-9006
+
+
+Orden 10:
+9007-10006
+
+
+Orden 11:
+10007-11006
+
+
+Orden 6:
+11007-12006
+
+
+
+
+
+
+
+
+
+
+
+
