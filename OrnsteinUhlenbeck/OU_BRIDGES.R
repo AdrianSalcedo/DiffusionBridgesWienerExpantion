@@ -1,19 +1,20 @@
-p_test <- 0
-while(p_test<0.05){
+#p_test <- 0
+#while(p_test<0.05){
 require(stats)
 #source('ChaosBridgeFunction.R')
 source('Mi_main.R')
 source('ExacBridgeFunction.r')
+source('Milstein_codes.r')
 ####OU_bridge####
 ## Parametros del OU
 thetaOU<-0.5
 sigmaOU<-1.0
 delta=1/1000
 ### Parametros del puente:
-a<- 0.8
-b<- 0.5 # test aprobado 0.4
+a<- 0
+b<- 0 # test aprobado 0.4
 ##numero de brownianos
-nb=25
+nb=100
 #numero de puentes
 M=1000
 #numero de puntos por puente
@@ -56,7 +57,7 @@ test_chaos
 print(test_chaos["p.value"])
 print(total_time_c)
 p_test<-test_chaos[["p.value"]]
-}
+#}
 ###
 par(mfrow=c(1,1))
 plot(TiempoC,chaos[1,],type="l",main="Ornstein Uhlenbeck bridges",

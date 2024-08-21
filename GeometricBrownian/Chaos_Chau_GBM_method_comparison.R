@@ -1,0 +1,84 @@
+####### My main
+source('Milstein_for_GBM.R')
+source('HermiteFunction.R')
+source('BridgeChaosFunction.R')
+source('IntegralItoTrapecio.R')
+source('Vikngos_Geometric.R')
+library(ggplot2)
+############
+sigma=0.3
+alpha=0.2
+delta=1/1000
+n=1000
+nb=1000
+a=3
+b=5
+##### number of bridges
+M=1000
+###### Read propagator D:\DiffusionBridgesWienerExpantion\DiffusionBridgesWienerExpantion\GeometricBrownian\New_propagator
+Xms=t(as.matrix(read.csv(file ='D:/DiffusionBridgesWienerExpantion/DiffusionBridgesWienerExpantion/GeometricBrownian/Orden8/Propagator_order8_int3.0_alpha0.2_sigma0.3_MB1000.csv'))[,-1])
+Lp = dim(Xms)[[1]]
+TF=delta*n
+TiempoC<-seq(0, TF, length.out = n+1)
+TL<-length(TiempoC)
+M_Y=mat.or.vec(M,TL)
+Yms=mat.or.vec(Lp,TL)
+Wtt <- matrix(0,nrow=M,nb+1)
+p1=0
+while (p1<0.05){
+################## Generate M Bridges Chaos Wiener expansion
+Chaos_bridges <- Gen_Bridges(Xms,a,b,alpha,sigma,n,delta,nb,M,Wtt)
+################## Generate M Bridges Chinos (prob de transition)
+Chau_method <- Milstein_GBM(a,b,alpha,sigma,n,delta,TiempoC)
+################### Generate M Bridges Reversal-time method
+#Vikingos_method <- M_bridges_MM_GBM(M,a,b,delta,n,alpha,sigma)
+###################
+obs=501
+p1 = ks.test(Chaos_bridges[,obs],Chau_method[,obs])$p.value
+#p2 = ks.test(Vikingos_method[,obs],Chau_method[,obs])$p.value
+#p3 = ks.test(Vikingos_method[,obs],Chaos_bridges[,obs])$p.value
+print(p1)
+par(mfrow = c(1, 1))
+plot(TiempoC,Chau_method[M/2,],type='l',col="blue")
+lines(TiempoC,Chaos_bridges[M/2,],type='l',col="black")
+qqplot(Chau_method[,obs],Chaos_bridges[,obs],ylab="Chau method",xlab="Wiener Chaos approximation method")
+abline(0,1)
+}
+
+
+par(mfrow = c(1, 1))
+plot(TiempoC,Chau_method[M/2,],type='l',col="blue")
+lines(TiempoC,Chaos_bridges[M/2,],type='l',col="black")
+lines(TiempoC,Vikingos_method[M/2,],type='l',col="red")
+qqplot(Chau_method[,obs],Chaos_bridges[,obs],ylab="Chau method",xlab="Wiener Chaos approximation method")
+abline(0,1)
+
+
+############ Save Data #############
+Data<- rbind(TiempoC,Chaos_bridges)
+write.csv(Data,"Chaos_GBM_prob8_a0.2b0.3_alpha0.2_sigma0.3_BM1000.csv")
+Data2<- rbind(TiempoC,Chau_method)
+write.csv(Data2,"ChauM_GBM_prob8_a0.2b0.3_alpha0.2_sigma0.3_BM1000.csv")
+Data3<- rbind(TiempoC,Vikingos_method)
+write.csv(Data3,"VikingosM_GBM_prob8_a1b1_alpha0.2_sigma0.3_BM1000.csv")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

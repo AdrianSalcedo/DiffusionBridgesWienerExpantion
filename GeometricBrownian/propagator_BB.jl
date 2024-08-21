@@ -1,52 +1,39 @@
 using DifferentialEquations
 using Plots; plotly()
-using DifferentialEquations.EnsembleAnalysis
+#using DifferentialEquations.EnsembleAnalysis
 using CSV, IterableTables, DataTables
 using DataFrames
 using Random, Distributions
-
-path0 = "Dropbox\\Artículos\\Trabajos_Francisco\\New_GeometricB\\"
-path2 = "C:\\Users\\Usuario1\\"
+#D:\\DiffusionBridgesWienerExpantion\\DiffusionBridgesWienerExpantion\GeometricBrownian
+#path0 = "Dropbox\\Artículos\\Trabajos_Francisco\\New_GeometricB\\"
+#path2 = "C:\\Users\\Usuario1\\"
+path0 = "DiffusionBridgesWienerExpantion\\GeometricBrownian\\"
+path2 = "D:\\DiffusionBridgesWienerExpantion\\"
 path = path2 * path0
 pathd = "D:\\Propagador\\Geometric\\"
 include(path * "Dynamic.jl")
-alpha_0 = 0.2
 sigma = 0.3
+alpha_0 = 0.2
 theta = 0.3
 
-eta = 1.0
+eta = 0.2
 u_0 = eta
 t0 = 0.0
 T = 1.0
 Time = (0.0,T)
 dt = 0.001
 
-u0 = zeros(1206)#[u_0,0.0]
+u0 = zeros(8006)
 u0[1]=u_0
 step = dt
 t_s = range(0.0,T, step=step)
 
 ################################################################################
-problem = ODEProblem(Prop_order12_BM100,u0,Time)
-Solution = solve(problem,AutoTsit5(Rosenbrock23()),reltol=1e-15,saveat = step)
+problem = ODEProblem(Prop_order8_BM1000,u0,Time)
+Solution = solve(problem,AutoTsit5(Rosenbrock23()),saveat = step)
 df = DataFrame(Solution)
-    # plot!(df[:,1],df[:,:value1], c=:blue)
-    # plot!(df[:,1],df[:,:value2], c=:blue)
-    # plot!(df[:,1],df[:,:value3], c=:blue)
-    # plot!(df[:,1],df[:,:value1002], c=:blue)
-    # plot!(df[:,1],df[:,:value1005], c=:blue)
-    # plot!(df[:,1],df[:,:value2006], c=:blue)
-    # plot!(df[:,1],df[:,:value2007], c=:blue)
-    # plot!(df[:,1],df[:,:value3007], c=:blue)
-    # plot!(df[:,1],df[:,:value4007], c=:blue)
-    # plot!(df[:,1],df[:,:value5007], c=:blue)
-    # plot!(df[:,1],df[:,:value6007], c=:blue)
-    # plot!(df[:,1],df[:,:value7007], c=:blue)
-    # plot!(df[:,1],df[:,:value8007], c=:blue)
-    # plot!(df[:,1],df[:,:value10007], c=:blue)
-    # plot!(df[:,1],df[:,:value11007], c=:blue)
 Data = Matrix(df)
-CSV.write(pathd * "Propagator_order12_int11_MB100.csv",df)
+CSV.write(path * "Propagator_order8_int0.2_alpha0.2_sigma0.3_MB1000.csv",df)
 
 ##############################################################################################################################################
 ##############################################################################################################################################

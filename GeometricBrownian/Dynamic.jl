@@ -308,7 +308,7 @@ function Prop_order12_BM100(du,u,p,t)
     #Orden 3 mixed
     du[205] = alpha_0 * u[205] + sigma * sqrt(2/T) * (sin(((2-1) * pi * t)/ T) * u[106] 
     + sqrt(2)* sin(((3-1) * pi * t)/ T) * u[102])
-    du[26] = alpha_0 * u[206] + sigma * sqrt(2/T) * (sqrt(2) * sin(((2-1) * pi * t)/ T) * u[102] 
+    du[206] = alpha_0 * u[206] + sigma * sqrt(2/T) * (sqrt(2) * sin(((2-1) * pi * t)/ T) * u[102] 
     + sqrt(1)* sin(((3-1) * pi * t)/ T) * u[105])
     ##Orden 3 diagonal
     for j in 2:101
@@ -412,17 +412,151 @@ function Prop_order12_BM1000(du,u,p,t)
     end
     #Orden 10
     for j in 2:1001
-        du[9005+j] = alpha_0 * u[9005+j] + sigma * sqrt(2/T) * (sqrt(9) * sin(((j-1) * pi * t)/ T) * u[8005+j])
+        du[9005+j] = alpha_0 * u[9005+j] + sigma * sqrt(2/T) * (sqrt(10) * sin(((j-1) * pi * t)/ T) * u[8005+j])
     end
     #Orden 11
     for j in 2:1001
-        du[10005+j] = alpha_0 * u[10005+j] + sigma * sqrt(2/T) * (sqrt(9) * sin(((j-1) * pi * t)/ T) * u[9005+j])
+        du[10005+j] = alpha_0 * u[10005+j] + sigma * sqrt(2/T) * (sqrt(11) * sin(((j-1) * pi * t)/ T) * u[9005+j])
     end
     #Orden 12
     for j in 2:1001
-        du[11005+j] = alpha_0 * u[10005+j] + sigma * sqrt(2/T) * (sqrt(9) * sin(((j-1) * pi * t)/ T) * u[10005+j])
+        du[11005+j] = alpha_0 * u[11005+j] + sigma * sqrt(2/T) * (sqrt(12) * sin(((j-1) * pi * t)/ T) * u[10005+j])
     end
 end
+
+function Prop_order15_BM1000(du,u,p,t)
+    du[1] = alpha_0 * u[1]
+    #Orden 1
+    for j in 2:1001
+        du[j] = alpha_0 * u[j] +  sqrt(2/T) * sin(((j-1) * pi * t)/ T) * sigma * u[1]
+    end
+    ##Orden 2 mixed
+    du[1002] = alpha_0 * u[1002] + sigma * sqrt(2/T) * (sin(((2-1) * pi * t)/ T) * u[3] 
+    + sin(((3-1) * pi * t)/ T) * u[2])
+    du[1003] = alpha_0 * u[1003] + sigma * sqrt(2/T) * (sin(((2-1) * pi * t)/ T) * u[4] 
+    + sin(((4-1) * pi * t)/ T) * u[2])
+    du[1004] = alpha_0 * u[1004] + sigma * sqrt(2/T) * (sin(((3-1) * pi * t)/ T) * u[4] 
+    + sin(((4-1) * pi * t)/ T) * u[3])
+    ##Orden 2 diagonal
+    for j in 2:1001
+        du[1003+j] = alpha_0 * u[1003+j] + sigma * sqrt(2) *sqrt(2/T) * sin(((j-1) * pi * t)/ T) * u[j]
+    end
+    #Orden 3 mixed
+    du[2005] = alpha_0 * u[2005] + sigma * sqrt(2/T) * (sin(((2-1) * pi * t)/ T) * u[1006] 
+    + sqrt(2)* sin(((3-1) * pi * t)/ T) * u[1002])
+    du[2006] = alpha_0 * u[2006] + sigma * sqrt(2/T) * (sqrt(2) * sin(((2-1) * pi * t)/ T) * u[1002] 
+    + sqrt(1)* sin(((3-1) * pi * t)/ T) * u[1005])
+    ##Orden 3 diagonal
+    for j in 2:1001
+        du[2005+j] = alpha_0 * u[2005+j] + sigma * sqrt(2/T) * (sqrt(3) * sin(((j-1) * pi * t)/ T) * u[1003+j])
+    end
+    #Orden 4
+    for j in 2:1001
+        du[3005+j] = alpha_0 * u[3005+j] + sigma * sqrt(2/T) * (sqrt(4) * sin(((j-1) * pi * t)/ T) * u[2005+j])
+    end
+    #Orden 5
+    for j in 2:1001
+     du[4005+j] = alpha_0 * u[4005+j] + sigma * sqrt(2/T) * (sqrt(5) * sin(((j-1) * pi * t)/ T) * u[3005+j])
+    end
+    #Orden 6
+    for j in 2:1001
+        du[5005+j] = alpha_0 * u[5005+j] + sigma * sqrt(2/T) * (sqrt(6) * sin(((j-1) * pi * t)/ T) * u[4005+j])
+    end
+    #Orden 7
+    for j in 2:1001
+        du[6005+j] = alpha_0 * u[6005+j] + sigma * sqrt(2/T) * (sqrt(7) * sin(((j-1) * pi * t)/ T) * u[5005+j])
+    end
+    #Orden 8
+    for j in 2:1001
+        du[7005+j] = alpha_0 * u[7005+j] + sigma * sqrt(2/T) * (sqrt(8) * sin(((j-1) * pi * t)/ T) * u[6005+j])
+    end
+    #Orden 9
+    for j in 2:1001
+        du[8005+j] = alpha_0 * u[8005+j] + sigma * sqrt(2/T) * (sqrt(9) * sin(((j-1) * pi * t)/ T) * u[7005+j])
+    end
+    #Orden 10
+    for j in 2:1001
+        du[9005+j] = alpha_0 * u[9005+j] + sigma * sqrt(2/T) * (sqrt(10) * sin(((j-1) * pi * t)/ T) * u[8005+j])
+    end
+    #Orden 11
+    for j in 2:1001
+        du[10005+j] = alpha_0 * u[10005+j] + sigma * sqrt(2/T) * (sqrt(11) * sin(((j-1) * pi * t)/ T) * u[9005+j])
+    end
+    #Orden 12
+    for j in 2:1001
+        du[11005+j] = alpha_0 * u[11005+j] + sigma * sqrt(2/T) * (sqrt(12) * sin(((j-1) * pi * t)/ T) * u[10005+j])
+    end
+    #Orden 13
+    for j in 2:1001
+        du[12005+j] = alpha_0 * u[12005+j] + sigma * sqrt(2/T) * (sqrt(13) * sin(((j-1) * pi * t)/ T) * u[11005+j])
+    end
+    #Orden 14
+    for j in 2:1001
+        du[13005+j] = alpha_0 * u[13005+j] + sigma * sqrt(2/T) * (sqrt(14) * sin(((j-1) * pi * t)/ T) * u[12005+j])
+    end
+    #Orden 15
+    for j in 2:1001
+        du[14005+j] = alpha_0 * u[14005+j] + sigma * sqrt(2/T) * (sqrt(15) * sin(((j-1) * pi * t)/ T) * u[13005+j])
+    end
+end
+
+
+function Prop_order8_BM1000(du,u,p,t)
+    du[1] = alpha_0 * u[1]
+    #Orden 1
+    for j in 2:1001
+        du[j] = alpha_0 * u[j] +  sqrt(2/T) * sin(((j-1) * pi * t)/ T) * sigma * u[1]
+    end
+    ##Orden 2 mixed
+    du[1002] = alpha_0 * u[1002] + sigma * sqrt(2/T) * (sin(((2-1) * pi * t)/ T) * u[3] 
+    + sin(((3-1) * pi * t)/ T) * u[2])
+    du[1003] = alpha_0 * u[1003] + sigma * sqrt(2/T) * (sin(((2-1) * pi * t)/ T) * u[4] 
+    + sin(((4-1) * pi * t)/ T) * u[2])
+    du[1004] = alpha_0 * u[1004] + sigma * sqrt(2/T) * (sin(((3-1) * pi * t)/ T) * u[4] 
+    + sin(((4-1) * pi * t)/ T) * u[3])
+    ##Orden 2 diagonal
+    for j in 2:1001
+        du[1003+j] = alpha_0 * u[1003+j] + sigma * sqrt(2) *sqrt(2/T) * sin(((j-1) * pi * t)/ T) * u[j]
+    end
+    #Orden 3 mixed
+    du[2005] = alpha_0 * u[2005] + sigma * sqrt(2/T) * (sin(((2-1) * pi * t)/ T) * u[1006] 
+    + sqrt(2)* sin(((3-1) * pi * t)/ T) * u[1002])
+    du[2006] = alpha_0 * u[2006] + sigma * sqrt(2/T) * (sqrt(2) * sin(((2-1) * pi * t)/ T) * u[1002] 
+    + sqrt(1)* sin(((3-1) * pi * t)/ T) * u[1005])
+    ##Orden 3 diagonal
+    for j in 2:1001
+        du[2005+j] = alpha_0 * u[2005+j] + sigma * sqrt(2/T) * (sqrt(3) * sin(((j-1) * pi * t)/ T) * u[1003+j])
+    end
+    #Orden 4
+    for j in 2:1001
+        du[3005+j] = alpha_0 * u[3005+j] + sigma * sqrt(2/T) * (sqrt(4) * sin(((j-1) * pi * t)/ T) * u[2005+j])
+    end
+    #Orden 5
+    for j in 2:1001
+     du[4005+j] = alpha_0 * u[4005+j] + sigma * sqrt(2/T) * (sqrt(5) * sin(((j-1) * pi * t)/ T) * u[3005+j])
+    end
+    #Orden 6
+    for j in 2:1001
+        du[5005+j] = alpha_0 * u[5005+j] + sigma * sqrt(2/T) * (sqrt(6) * sin(((j-1) * pi * t)/ T) * u[4005+j])
+    end
+    #Orden 7
+    for j in 2:1001
+        du[6005+j] = alpha_0 * u[6005+j] + sigma * sqrt(2/T) * (sqrt(7) * sin(((j-1) * pi * t)/ T) * u[5005+j])
+    end
+    #Orden 8
+    for j in 2:1001
+        du[7005+j] = alpha_0 * u[7005+j] + sigma * sqrt(2/T) * (sqrt(8) * sin(((j-1) * pi * t)/ T) * u[6005+j])
+    end
+end
+
+
+
+
+
+
+
+
+
 
 
 
